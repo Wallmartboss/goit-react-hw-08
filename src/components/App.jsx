@@ -1,32 +1,79 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import ContactsForm from './ContactsForm/ContactsForm';
-import ContactList from './ContactList/ContactList';
-import SearchBox from './SearchBox/SearchBox';
-import { selectLoading, selectError } from '../redux/contactsSlice'
-import {fetchContacts} from '../redux/contactsOps'
-import s from './App.module.css'
+import { useEffect, lazy } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { PrivateRoute } from './PrivateRoute/PrivateRoute';
+import { RestrictedRoute } from './RestrictedRoute/RestrictedRoute';
+// import ContactsForm from './ContactsForm/ContactsForm';
+// import ContactList from './ContactList/ContactList';
+// import SearchBox from './SearchBox/SearchBox';
+import { Layout } from './Layout/Layout';
+// import { selectLoading, selectError } from '../redux/contacts/selectors';
+// import { fetchContacts } from '../redux/contacts/operations';
+import { refreshUser } from '../redux/auth/operations';
+import { selectIsRefreshing } from '../redux/auth/selectors';
+// import s from './App.module.css';
 
+const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
+const RegisterPage = lazy(() =>
+  import('../pages/RegistrationPage/RegistrationPage')
+);
+const LoginPage = lazy(() => import('../pages/LoginPage/LoginPage'));
+const ContactsPage = lazy(() => import('../pages/ContactsPage/ContactsPage'));
 
 const App = () => {
-
   const dispatch = useDispatch();
-  const loading = useSelector(selectLoading);
-  const error = useSelector(selectError);
+  // const loading = useSelector(selectLoading);
+  // const error = useSelector(selectError);
+  const { isRefreshing } = useSelector(selectIsRefreshing);
 
   useEffect(() => {
-    dispatch(fetchContacts());
-      }, [dispatch]);
+    dispatch(refreshUser());
+  }, [dispatch]);
 
-     return (
-       <div className={s.contactsWrapper}>
-         <h1> Contact book </h1>
-         <ContactsForm />
-          <SearchBox />
-          {loading && !error && <p>Request in progress...</p>}
-          <ContactList />
-        </div>
+  return isRefreshing ? (
+    <b>Refreshing user...</b>
+  ) : (
+    <Layout>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/register"
+          element={
+            <RestrictedRoute
+              redirectTo="/contacts"
+              component={<RegisterPage />}
+            />
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <RestrictedRoute redirectTo="/contacts" component={<LoginPage />} />
+          }
+        />
+        <Route
+          path="/contacts"
+          element={
+            <PrivateRoute redirectTo="/login" component={<ContactsPage />} />
+          }
+        />
+      </Routes>
+    </Layout>
   );
 };
-
 export default App;
+
+//   useEffect(() => {
+//     dispatch(fetchContacts());
+//   }, [dispatch]);
+
+//   return (
+//     <div className={s.contactsWrapper}>
+//       <h1> Contact book </h1>
+//       <ContactsForm />
+//       <SearchBox />
+//       {loading && !error && <p>Request in progress...</p>}
+//       <ContactList />
+//     </div>
+//   );
+// };

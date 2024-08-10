@@ -1,7 +1,7 @@
 import { Field, Form, Formik } from 'formik';
 import s from './ContactsForm.module.css';
 import { useDispatch } from 'react-redux';
-import { addContact } from '../../redux/contactsOps';
+import { addContact } from '../../redux/contacts/operations';
 
 const ContactsForm = () => {
   const dispatch = useDispatch();
@@ -14,13 +14,15 @@ const ContactsForm = () => {
     <div className={s.addFormWrapper}>
       <Formik initialValues={{ name: '' }} onSubmit={onSubmit}>
         <Form>
-          <Field className={s.input} name='name' placeholder='Enter new contact' />
-          <button type='submit'>Add contact</button>
+          <Field
+            className={s.input}
+            name="name"
+            placeholder="Enter new contact"
+          />
+          <button type="submit">Add contact</button>
         </Form>
       </Formik>
     </div>
   );
 };
-export default ContactsForm
-
-
+export default ContactsForm;
