@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../../redux/auth/selectors';
 import s from './Navigation.module.css';
 
-export const Navigation = () => {
+const Navigation = () => {
   const { isLoggedIn } = useSelector(selectIsLoggedIn);
 
   return (
@@ -12,10 +12,11 @@ export const Navigation = () => {
         Home
       </NavLink>
       {isLoggedIn && (
-        <NavLink className={s.link} to="/tasks">
-          Tasks
+        <NavLink className={s.link} to="/contacts">
+          Contacts
         </NavLink>
       )}
     </nav>
   );
 };
+export default Navigation;
