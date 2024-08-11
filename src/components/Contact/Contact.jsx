@@ -8,6 +8,7 @@ const Contact = ({ item }) => {
   return (
     <div className={s.item}>
       <p className={s.name}>{item.name}</p>
+      <p className={s.name}>{item.number}</p>
       <button
         className={s.btn}
         onClick={() => dispatch(deleteContact(item.id))}

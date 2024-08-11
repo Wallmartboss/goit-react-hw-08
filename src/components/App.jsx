@@ -62,18 +62,3 @@ const App = () => {
   );
 };
 export default App;
-
-//   useEffect(() => {
-//     dispatch(fetchContacts());
-//   }, [dispatch]);
-
-//   return (
-//     <div className={s.contactsWrapper}>
-//       <h1> Contact book </h1>
-//       <ContactsForm />
-//       <SearchBox />
-//       {loading && !error && <p>Request in progress...</p>}
-//       <ContactList />
-//     </div>
-//   );
-// };

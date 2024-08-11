@@ -6,11 +6,12 @@ import { selectIsLoggedIn } from '../../redux/auth/selectors';
 import s from './AppBar.module.css';
 
 const AppBar = () => {
-  const { isLoggedIn } = useSelector(selectIsLoggedIn);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   return (
     <header className={s.header}>
       <Navigation />
+      {/* {isLoggedIn ? <h2>Successful login</h2> : <h2>Not successful login</h2>} */}
       {isLoggedIn ? <UserMenu /> : <AuthNav />}
     </header>
   );

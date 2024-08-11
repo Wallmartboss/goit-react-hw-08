@@ -12,12 +12,19 @@ const ContactsForm = () => {
   };
   return (
     <div className={s.addFormWrapper}>
-      <Formik initialValues={{ name: '' }} onSubmit={onSubmit}>
+      <Formik initialValues={{ name: '', number: '' }} onSubmit={onSubmit}>
         <Form>
           <Field
             className={s.input}
             name="name"
             placeholder="Enter new contact"
+            required
+          />
+          <Field
+            className={s.input}
+            name="number"
+            placeholder="Enter contact's number"
+            required
           />
           <button type="submit">Add contact</button>
         </Form>

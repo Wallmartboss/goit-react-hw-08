@@ -1,14 +1,15 @@
 .name {
-  width: 200px;
+  width: 250px;
 }
 .btn {
   width: 80px;
 }
 .item {
   display: flex;
-  width: 350px;
+  width: 520px;
   flex-wrap: nowrap;
-  gap: 30px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  gap: 20px;
+  padding: 6px;
+  border: 1px solid grey;
+  margin-top: 10px;
 }

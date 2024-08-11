@@ -1,42 +1,40 @@
 import { useDispatch } from 'react-redux';
+import { Field, Form, Formik } from 'formik';
 import { login } from '../../redux/auth/operations';
 import s from './LoginForm.module.css';
 
-export const LoginForm = () => {
+const LoginForm = () => {
   const dispatch = useDispatch();
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    const form = e.currentTarget;
-
-    dispatch(
-      login({
-        email: form.elements.email.value,
-        password: form.elements.password.value,
-      })
-    )
-      .unwrap()
-      .then(() => {
-        console.log('login success');
-      })
-      .catch(() => {
-        console.log('login error');
-      });
-
-    form.reset();
+  const onSubmit = (values, options) => {
+    dispatch(login(values));
+    options.resetForm();
   };
 
   return (
-    <form className={s.form} onSubmit={handleSubmit} autoComplete="off">
-      <label className={s.label}>
-        Email
-        <input type="email" name="email" />
-      </label>
-      <label className={s.label}>
-        Password
-        <input type="password" name="password" />
-      </label>
-      <button type="submit">Log In</button>
-    </form>
+    <div className={s.form}>
+      <Formik
+        initialValues={{ email: '', password: '' }}
+        onSubmit={onSubmit}
+        autoComplete="off"
+      >
+        <Form>
+          <Field
+            className={s.label}
+            name="email"
+            placeholder="Enter your email"
+            required
+          />
+          <Field
+            className={s.label}
+            name="password"
+            placeholder="Enter your password"
+            required
+          />
+          <button type="submit">Log In</button>
+        </Form>
+      </Formik>
+    </div>
   );
 };
+export default LoginForm;

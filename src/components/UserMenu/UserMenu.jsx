@@ -5,7 +5,7 @@ import s from './UserMenu.module.css';
 
 const UserMenu = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector(selectUser);
+  const user = useSelector(selectUser);
 
   return (
     <div className={s.wrapper}>
@@ -16,4 +16,4 @@ const UserMenu = () => {
     </div>
   );
 };
-export default UserMenu
+export default UserMenu;

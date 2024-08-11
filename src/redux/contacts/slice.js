@@ -55,8 +55,10 @@ export const contactsReducer = contactSlice.reducer;
 export const selectFilteredContacts = createSelector(
   [selectContacts, selectNameFilter],
   (contacts, filter) => {
-    return contacts.filter(item =>
-      item.name.toLowerCase().includes(filter.toLowerCase())
+    return contacts.filter(
+      item =>
+        item.name.toLowerCase().includes(filter.toLowerCase()) ||
+        item.number.includes(filter)
     );
   }
 );
