@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { deleteContact } from '../../redux/contacts/operations';
 import s from './Contact.module.css';
+import { Toaster } from 'react-hot-toast';
 
 const Contact = ({ item }) => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const Contact = ({ item }) => {
       >
         Delete
       </button>
+      <Toaster />
     </div>
   );
 };
